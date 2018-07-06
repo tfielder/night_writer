@@ -3,6 +3,8 @@ message_text = ARGV
 puts "Night Writer Initialized"
 puts message_text
 
+#Just a test
+
 class NightWriter
   def initialize(text)
     puts text
