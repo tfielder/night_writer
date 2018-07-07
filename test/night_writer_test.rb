@@ -3,14 +3,12 @@ require "minitest/pride"
 require "./lib/night_writer"
 
 class NightWriterTest < Minitest::Test
-  def test_exists
-    night_writer = NightWriter.new
-    assert_instance_of NightWriter, night_writer
-  end
 
-  def test_newclass_prints_to_terminal
-  #  night_writer = NightWriter.new("Night Writer Initialized")
-    assert_equal "Night Writer Initialized", night_writer.rb
-  end
+  def test_it_exists
+    #night_writer = File.new("newfile", "w+")
+    assert_instance_of File, night_writer
 
+    night_writer_2 = NightWriter.new(night_writer)
+    assert_instance_of NightWriter, night_writer_2
+  end
 end
