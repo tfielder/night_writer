@@ -1,17 +1,14 @@
 require "./lib/braille_legend.rb"
-
-
+require "./lib/fileconnector.rb"
+require "pry"
 
 class NightWriter
   attr_reader :translate
 
   def initialize
-    # handle = File.open(ARGV[0], "r")
-    #
-    # @incoming_text = handle.read
-    # handle.close
-    # @counted_text = incoming_text.chomp.size
-    # puts "Created '#{ARGV[1]}' containing #{counted_text} characters."
+    #@fileconnector = FileConnector.new
+    #@fileconnector.read_file
+    #@fileconnector.write_file(translate())
 
     @braille_legend = {
     "a" => ["0.", "..", ".."],
@@ -88,15 +85,11 @@ class NightWriter
   end
 
   def translate(input)
-#    writer = File.open(ARGV[1], "w")
-
-#    writer.write(@incoming_text)
-#    writer.close
-
-
-#    puts @braille_legend[input]
-    # @braille_legend[input]
-    return @braille_legend.values_at(input)
+    character_array = input.chars
+    newest = []
+    binding.pry
+    character_array.map do |keys|
+      newest << @braille_legend.values_at(keys)
+    end
   end
-
 end

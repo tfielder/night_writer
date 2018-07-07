@@ -1,20 +1,26 @@
 class FileConnector
 
-handle = File.open(ARGV[0], "r")
 
- @incoming_text = handle.read
- handle.close
- @counted_text = incoming_text.chomp.size
- puts "Created '#{ARGV[1]}' containing #{counted_text} characters."
+  def initialize
+    @read_file = read_file
+    # @fileconnector = FileConnector.new
+    # @braille_legend = braille_legend
 
+  end
 
- writer = File.open(ARGV[1], "w")
+  def read_file
+    handle = ARGV[0]
+    File.read(handle)
+  end
 
-   writer.write(@incoming_text)
-   writer.close
+  def write_file(translate)
+    handle = ARGV[1]
+    new_braille = File.open(handle, "w")
+    new_braille.write(translate)
+    new_braille.close
 
-
-   puts @braille_legend[input]
-  @braille_legend[input]
-
+    read_new = File.open(handle, "r")
+    number_of_characters = read_new.read.length
+    puts "Created '#{ARGV[1]}' containing #{number_of_characters} characters."
+  end
 end
