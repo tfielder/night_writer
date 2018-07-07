@@ -11,4 +11,9 @@ class NightWriterTest < Minitest::Test
     night_writer_2 = NightWriter.new(night_writer)
     assert_instance_of NightWriter, night_writer_2
   end
+
+  def test_it_translates
+    night_writer = NightWriter.new("a")
+    assert_equal ["0.", "..", ".."], night_writer.translate
+  end
 end
