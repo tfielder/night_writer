@@ -3,13 +3,10 @@ require "./lib/fileconnector.rb"
 require "pry"
 
 class NightWriter
-  attr_reader :translate
+  attr_reader :translate, :iterator
 
   def initialize
-    #@fileconnector = FileConnector.new
-    #@fileconnector.read_file
-    #@fileconnector.write_file(translate())
-
+    @newest = []
     @braille_legend = {
     "a" => ["0.", "..", ".."],
     "b" => ["0.", "0.", ".."],
@@ -86,10 +83,10 @@ class NightWriter
 
   def translate(input)
     character_array = input.chars
-    newest = []
-    binding.pry
     character_array.map do |keys|
-      newest << @braille_legend.values_at(keys)
+      @newest << @braille_legend.values_at(keys)
     end
+@newest  =  @newest.flatten(1)
+binding.pry
   end
 end

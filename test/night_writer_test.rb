@@ -23,9 +23,11 @@ class NightWriterTest < Minitest::Test
 
   def test_words_translated
     night_writer = NightWriter.new
-    assert_equal ["0.", "00", ".."][".0", "0.", ".."], night_writer.translate("hi")
-    0.0.0.0.0....00.0.0.00
-    00.00.0..0..00.0000..0
-    ....0.0.0....00.0.0...
+    night_writer.translate("hello world")
+
+    #assert_equal [["0.", "00", ".."],[".0", "0.", ".."]], night_writer.translate()
+   #assert_equal ("0.0.0.0.0....00.0.0.00"), night_writer.iterator
+  #  assert_equal ("00.00.0..0..00.0000..0"), night_writer.iterator
+  #  assert_equal ("....0.0.0....00.0.0..."), night_writer.iterator
   end
 end
