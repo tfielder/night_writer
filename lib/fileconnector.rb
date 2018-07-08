@@ -1,6 +1,4 @@
 class FileConnector
-
-  class FileConnector
     attr_reader :read_file,
                 :write_file
     def initialize(message_file, braille_file)  #throw in the arguments here
@@ -10,6 +8,7 @@ class FileConnector
       read_file       #call it up when created
       write_file      #call it up when created
     end
+
     def read_file
       #deleted this line
       reader = File.open(@read_file, "r")
@@ -25,7 +24,7 @@ class FileConnector
       number_of_characters = 10   #need to set equal to size of read_file
       puts "Created '#{@file_content}' containing #{number_of_characters} characters."
     end
-  end
+end
 
 
 # #what we had before
