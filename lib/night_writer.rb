@@ -86,7 +86,7 @@ class NightWriter
     character_array.map do |keys|
       @newest << @braille_legend.values_at(keys)
     end
-@newest  =  @newest.flatten(1)
-binding.pry
+    @newest  =  @newest.flatten(1)
+    binding.pry
   end
 end
