@@ -1,6 +1,6 @@
-require "./lib/fileconnector.rb"
-require "./lib/night_writer.rb"
-require "./lib/braille_legend.rb"
+require "./lib/fileconnector"
+require "./lib/night_writer"
+require "./lib/braille_legend"
 
 arg_1 = ARGV[0]
 arg_2 = ARGV[1]
