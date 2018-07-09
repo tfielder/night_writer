@@ -86,10 +86,10 @@ class NightWriter
     character_array.map do |keys|
       @newest << @braille_legend.values_at(keys)
     end
+
      @newest = @newest.flatten(1).compact
      @fileconnector.write_file(@newest)
      #binding.pry
-
      #something_else = @newest.transpose
 
 
@@ -98,24 +98,35 @@ class NightWriter
 
      #puts "#{@newest[0,1]}\n  #{@newest[2,3]}\n + #{@newest[4,5]}"
 
+
+#look into using #reduce
+     def line_1
      @newest.each do |element|
        print element[0]
      end
+    end
 
-     puts " "
-
+     def  line_2
      @newest.each do |element|
        print element[1]
      end
+     end
 
-     puts " "
-
+     def line_3
      @newest.each do |element|
        print element[2]
      end
+   end
 
+
+   line_1
+    puts " "
+   line_2
+    puts " "
+   line_3
      puts " "
 
+#binding.pry
   end
 end
 
