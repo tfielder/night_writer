@@ -1,11 +1,11 @@
-require "./lib/braille_legend.rb"
-require "./lib/fileconnector.rb"
-require "pry"
-
+require './lib/braille_legend.rb'
+require './lib/fileconnector.rb'
+require 'pry'
+# Oolala
 class NightWriter
-  attr_reader :translate, :iterator
-
+  attr_reader :translate
   def initialize
+    @fileconnector = FileConnector.new
     @newest = []
     @braille_legend = {
     "a" => ["0.", "..", ".."],
@@ -81,12 +81,20 @@ class NightWriter
     }
   end
 
-  def translate(input)
-    character_array = input.chars
+  def translate
+    character_array = @fileconnector.file_content.chars
     character_array.map do |keys|
       @newest << @braille_legend.values_at(keys)
     end
-    @newest = @newest.flatten(1)
-    #binding.pry
+     @newest.flatten(1).compact
+     @fileconnector.write_file(@newest)
+
+
+
+
+     puts @newest
+
   end
 end
+
+NightWriter.new.translate
