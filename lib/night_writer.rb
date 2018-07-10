@@ -5,8 +5,8 @@ require 'pry'
 class NightWriter
   attr_reader :translate
   def initialize
-    @fileconnector = FileConnector.new
-    @newest = []
+    #@fileconnector = FileConnector.new(ARGV[0], ARGV[1])
+    #@newest = []                         #commented out so we can use it locally in translate.
     @braille_legend = {
     "a" => ["0.", "..", ".."],
     "b" => ["0.", "0.", ".."],
@@ -81,53 +81,44 @@ class NightWriter
     }
   end
 
-  def translate
-    character_array = @fileconnector.file_content.chars
+  def translate(file_content)
+    @holder_array = []
+    character_array = file_content.chars          #pass the file content to the translation
     character_array.map do |keys|
-      @newest << @braille_legend.values_at(keys)
+      @holder_array << @braille_legend.values_at(keys)
     end
-
-     @newest = @newest.flatten(1).compact
-     @fileconnector.write_file(@newest)
-     #binding.pry
+    @holder_array = @holder_array.flatten(1).compact
+    @final_text = []                      #holds all the text to print
      #something_else = @newest.transpose
-
-
-     # @newest.each.with_index do |element, even|
-     # @newest[0,1] +  @newest[2,3] + @newest[4,5]
-
-     #puts "#{@newest[0,1]}\n  #{@newest[2,3]}\n + #{@newest[4,5]}"
-
-
 #look into using #reduce
-     def line_1
-     @newest.each do |element|
-       print element[0]
+  def line_1
+     @holder_array.each do |element|
+       @final_text << element[0]
      end
-    end
+  end
 
-     def  line_2
-     @newest.each do |element|
-       print element[1]
+  def  line_2
+     @holder_array.each do |element|
+       @final_text << element[1]
      end
+  end
+
+  def line_3
+     @holder_array.each do |element|
+       @final_text << element[2]
      end
+  end
+  line_1
+  @final_text << "\n"
+  line_2
+  @final_text << "\n"
+  line_3
+  #changed argument to call the translation and not the array.
 
-     def line_3
-     @newest.each do |element|
-       print element[2]
-     end
-   end
+  @final_text = @final_text.join      #takes the array and converts it to a string.
 
-
-   line_1
-    puts " "
-   line_2
-    puts " "
-   line_3
-     puts " "
-
-#binding.pry
+  return @final_text
   end
 end
 
-NightWriter.new.translate
+file = FileConnector.new(ARGV[0], ARGV[1])

@@ -4,24 +4,25 @@ class FileConnector
   attr_reader :file_content,
               :write_file
 
-  def initialize
+  def initialize(arg_1, arg_2)
+    @message_file = arg_1
+    @conversion_file = arg_2
     read_file
-    @file_content
+    #@file_content      #commented out.
+    write_file          #added to continue the tasks
   end
 
   def read_file
-    filename = ARGV[0]
-    reader = File.open(filename, 'r')
+    reader = File.open(@message_file, 'r')        #put in ARGV to use one line
     @file_content = reader.read.chomp
     reader.close
   end
 
-  def write_file(translated_to_braille)
-    endzone = ARGV[1]
-    writer = File.open(endzone, 'w')
-    number_of_characters = writer.write(translated_to_braille)
+  def write_file
+    braille_file = File.open(@conversion_file, 'w')    #put in ARGV to use one line
+    braille_file.write(NightWriter.new.translate(@file_content))   #added to call the translation
     number_of_characters = @file_content.length * 6
-    puts "Created #{ARGV[1]} containing #{number_of_characters} characters."
-    writer.close
+    puts "Created #{@conversion_file} containing #{number_of_characters} characters."
+    braille_file.close
   end
 end
