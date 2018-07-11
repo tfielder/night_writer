@@ -1,12 +1,12 @@
-require "./lib/braille_legend.rb"
-require "./lib/fileconnector.rb"
-require "pry"
-
+require './lib/braille_legend.rb'
+require './lib/fileconnector.rb'
+require 'pry'
+# Oolala
 class NightWriter
-  attr_reader :translate, :iterator
-
+  attr_reader :translate
   def initialize
-    @newest = []
+    #@fileconnector = FileConnector.new(ARGV[0], ARGV[1])
+    #@newest = []                         #commented out so we can use it locally in translate.
     @braille_legend = {
     "a" => ["0.", "..", ".."],
     "b" => ["0.", "0.", ".."],
@@ -81,12 +81,66 @@ class NightWriter
     }
   end
 
-  def translate(input)
-    character_array = input.chars
+  def translate(file_content)
+    @holder_array = []
+    character_array = file_content.chars          #pass the file content to the translation
     character_array.map do |keys|
-      @newest << @braille_legend.values_at(keys)
-    end
-@newest  =  @newest.flatten(1)
-binding.pry
+    @holder_array << @braille_legend.values_at(keys)
+  end
+    @holder_array = @holder_array.flatten(1).compact
+    @final_text = []
+ 
+    #do this 40 times
+  while @holder_array.count > 40 
+  40.times do
+  line_1
+  @final_text << "\n"
+
+  line_2
+  @final_text << "\n"
+
+  line_3
+  @final_text << "\n"
+  
+  @holder_array.shift(40)
+  #add a newline, shift the @holder array by 40 and loop back.
+  end
+  end
+
+  line_1
+  @final_text << "\n"
+
+  line_2
+  @final_text << "\n"
+
+  line_3
+  @final_text << "\n"
+
+
+  @final_text = @final_text.join
+
+
+  return @final_text
+end
+
+
+def line_1
+  @holder_array.each do |element|
+    @final_text << element[0]
   end
 end
+
+def  line_2
+  @holder_array.each do |element|
+    @final_text << element[1]
+  end
+end
+
+def line_3
+  @holder_array.each do |element|
+    @final_text << element[2]
+  end
+end
+end
+
+file = FileConnector.new(ARGV[0], ARGV[1])
