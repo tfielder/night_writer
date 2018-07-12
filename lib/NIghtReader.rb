@@ -78,69 +78,110 @@ class NightWriter
     "X" => ["..00", "....", ".000"],
     "Y" => ["..00", "...0", ".000"],
     "Z" => ["..0.", "...0", ".000"]
-    }
+    }.invert
   end
 
   def translate(file_content)
     @holder_array = []
+    joined =[]
+  
+    array_1 = []
+    array_2 = []
+    array_3 = []
+
     character_array = file_content.chars          #pass the file content to the translation
+    
+    counter = 0
+
+    while (character_array.size) > 0
+      character_array.each do |character|
+        if character == "\n"
+          break
+          end
+          array_1 << character 
+          counter += 1
+      end
+      character_array.shift(counter)
+      
+      counter = 1
+
+
+      character_array.each do |character|
+        if character == "\n"
+          break
+          end
+          array_2 << character 
+          counter += 1
+      end
+      character_array.shift(counter)
+      counter = 1
+    
+      character_array.each do |character|
+        if character == "\n"
+          break
+          end
+          array_3 << character 
+    
+          counter += 1
+      end
+      character_array.shift(counter)
+    #  binding.pry
+      counter = 1
+      
+    end
+    binding.pry
+
+      tops = array_1.scan(/../)
+      mid = array_2.scan(/../)  
+      bots = array_3.scan(/../) 
+
+#binding.pry
+
     character_array.map do |keys|
     @holder_array << @braille_legend.values_at(keys)
+    
   end
     @holder_array = @holder_array.flatten(1).compact
     @final_text = []
- binding.pry
-    #do this 40 times
-  while @holder_array.count > 40 
-  40.times do
-  line_1
-  @final_text << "\n"
-
-  line_2
-  @final_text << "\n"
-
-  line_3
-  @final_text << "\n"
-  
-  @holder_array.shift(40)
-  #add a newline, shift the @holder array by 40 and loop back.
-  end
-  end
-
-  line_1
-  @final_text << "\n"
-
-  line_2
-  @final_text << "\n"
-
-  line_3
-  @final_text << "\n"
-
-
-  @final_text = @final_text.join
-
-
-  return @final_text
-end
-
-
-def line_1
-  @holder_array.each do |element|
-    @final_text << element[0]
-  end
-end
-
-def  line_2
-  @holder_array.each do |element|
-    @final_text << element[1]
-  end
-end
-
-def line_3
-  @holder_array.each do |element|
-    @final_text << element[2]
-  end
+ 
 end
 end
 
 file = FileConnector.new(ARGV[0], ARGV[1])
+
+
+
+
+
+
+
+
+#   def translate(file_content)
+#     @holder_array = []
+#      joined = []
+#     character_array = file_content.chars
+#     @holder_array = character_array
+#     #make an array of all of the characters and put it in an array.
+    
+                   
+#      joined << character_array.take_while { |i| i != "\n" }
+#     # or joined << character_array.take_while { |i| i <=>"\n" }
+
+
+    
+#     pineapple = character_array.keep_if{ |v| v =~ /[0,.]/ }
+#     pineapple_split = pineapple.join
+#     pineapple_done = pineapple_split.scan(/../)  
+#     #removed []
+
+#     pineapple_done.map do |keys|
+#     @holder_array << @braille_legend[keys]
+ 
+#   end
+#     @holder_array = @holder_array.flatten(1).compact
+#     @holder_array.join
+#   end
+
+# end
+
+# file = FileConnector.new(ARGV[0], ARGV[1])
