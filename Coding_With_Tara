@@ -1,8 +1,0 @@
-string_one = "hello"
-string_two = "goodbye"
-
-puts "string_one memory address is #{string_one.object_id}"
-puts "string_one value is #{string_one.inspect}"
-
-puts "string_two memory address is #{string_two.object_id}"
-puts "string_two value is #{string_two.inspect}"
